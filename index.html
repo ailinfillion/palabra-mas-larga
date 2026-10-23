@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resaltador de palabra larga</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --fg: #1d2330; --muted: #5d6677; --card: #fff;
+    --border: #c9cfda; --accent: #2f5bea; --ok: #1a7f4b; --err: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151c; --fg: #e8ebf2; --muted: #9aa3b5; --card: #1b2030;
+      --border: #3a4256; --accent: #7a9bff; --ok: #5fd397; --err: #ff8a80;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    padding: 16px; background: var(--bg); color: var(--fg);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { width: 100%; max-width: 520px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  p.sub { margin: 0 0 20px; color: var(--muted); }
+  label.drop {
+    display: block; padding: 40px 20px; text-align: center; cursor: pointer;
+    background: var(--card); border: 2px dashed var(--border); border-radius: 12px;
+  }
+  label.drop:hover, label.drop.over, label.drop:focus-within { border-color: var(--accent); }
+  label.drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  #status { min-height: 1.5em; margin-top: 16px; text-align: center; color: var(--muted); }
+  #status.ok { color: var(--ok); }
+  #status.err { color: var(--err); }
+  footer { margin-top: 24px; font-size: .85rem; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Resaltador de palabra larga</h1>
+  <p class="sub">Subí un PDF: se resalta la palabra más larga de cada oración y se descarga solo.</p>
+
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept="application/pdf,.pdf">
+    <strong>Elegí un PDF</strong> o arrastralo acá
+  </label>
+
+  <div id="status" role="status" aria-live="polite"></div>
+  <footer>Todo se procesa en tu navegador. El archivo no se sube a ningún servidor ni queda guardado.</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
